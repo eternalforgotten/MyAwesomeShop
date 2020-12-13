@@ -1,0 +1,2 @@
+# MyAwesomeShop
+RubyProject
