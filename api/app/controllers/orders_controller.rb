@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_action :auth_user, :load_cart
 
   def index
-    orders = current_user.orders
+    orders = current_user.orders.order(id: :desc)
     if orders.empty?
       render json: {}, status: 204
     else
