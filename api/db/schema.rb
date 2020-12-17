@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201122191537) do
+ActiveRecord::Schema.define(version: 20201215135729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20201122191537) do
   create_table "carts_products", force: :cascade do |t|
     t.bigint "cart_id"
     t.bigint "product_id"
+    t.integer "quantity", default: 1
     t.index ["cart_id"], name: "index_carts_products_on_cart_id"
     t.index ["product_id"], name: "index_carts_products_on_product_id"
   end
@@ -42,6 +43,7 @@ ActiveRecord::Schema.define(version: 20201122191537) do
   create_table "orders_products", force: :cascade do |t|
     t.bigint "order_id"
     t.bigint "product_id"
+    t.integer "quantity", default: 1
     t.index ["order_id"], name: "index_orders_products_on_order_id"
     t.index ["product_id"], name: "index_orders_products_on_product_id"
   end

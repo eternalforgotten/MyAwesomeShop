@@ -2,9 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shop/entities/cart.dart';
+import 'package:shop/entities/cart_product.dart';
 import 'package:shop/entities/order.dart';
+import 'package:shop/entities/order_product.dart';
 import 'package:shop/entities/product.dart';
 import 'package:shop/repos/user_repository.dart';
+
+import '../repos/user_repository.dart';
 
 class Requests {
   static const String SERVERURL = "http://178.154.255.209:3210";
@@ -131,8 +135,7 @@ class Requests {
     }
   }
 
-  static Future<void> addProduct(
-      List<Product> products, String productId) async {
+  static Future<void> addProduct(String productId) async {
     int id = int.parse(productId);
     var body = jsonEncode({"id": id});
     String url = SERVERURL + "/cart/add";
@@ -147,16 +150,15 @@ class Requests {
     if (response.statusCode == 204) {
       throw Exception();
     } else {
-      products.add(jsonDecode(response.body));
+      print(jsonDecode(response.body));
     }
   }
 
-  static Future<void> deleteProduct(
-      List<Product> products, String productId) async {
+  static Future<void> removeProduct(String productId) async {
     int id = int.parse(productId);
-    var body = jsonEncode({"id": id});
-    String url = SERVERURL + "/cart/add";
-    http.Response response = await http.post(
+    var body = jsonEncode({"product_id": id});
+    String url = SERVERURL + "/cart/remove";
+    http.Response response = await http.put(
       url,
       headers: {
         HttpHeaders.authorizationHeader: UserRepository.USERTOKEN,
@@ -167,12 +169,31 @@ class Requests {
     if (response.statusCode == 204) {
       throw Exception();
     } else {
-      products.add(jsonDecode(response.body));
+      //UserRepository.cart = jsonDecode(response.body);
+    }
+  }
+
+  static Future<void> deleteProduct(String productId) async {
+    int id = int.parse(productId);
+    var body = jsonEncode({"product_id": id});
+    String url = SERVERURL + "/cart/delete";
+    http.Response response = await http.put(
+      url,
+      headers: {
+        HttpHeaders.authorizationHeader: UserRepository.USERTOKEN,
+        'Content-Type': 'application/json',
+      },
+      body: body,
+    );
+    if (response.statusCode == 204) {
+      throw Exception();
+    } else {
+      //UserRepository.cart = jsonDecode(response.body);
     }
   }
 
   static Future<void> createOrder(
-      List<Product> products, List<Order> orders) async {
+      List<CartProduct> products, List<Order> orders) async {
     String url = SERVERURL + "/orders";
     http.Response response = await http.post(
       url,

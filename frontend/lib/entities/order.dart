@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shop/entities/cart_product.dart';
+import 'package:shop/entities/order_product.dart';
 import 'package:shop/entities/product.dart';
 
 class Order {
@@ -7,7 +9,7 @@ class Order {
   final String name;
   final String dateTime;
   final String totalValue;
-  final List<Product> products;
+  final List<OrderProduct> products;
 
   Order({
     @required this.id,
@@ -23,13 +25,13 @@ class Order {
         id = data['id'].toString(),
         dateTime = data['created_at'],
         totalValue = data['value'],
-        products =  realProducts(data['products']),
+        products =  realProducts(data['orders_products']),
         userId = data['user_id'].toString();
 
-  static List<Product> realProducts(List<dynamic> temp) {
-    List<Product> prod = [];
+  static List<OrderProduct> realProducts(List<dynamic> temp) {
+    List<OrderProduct> prod = [];
     temp?.forEach((element) {
-      prod.add(Product.fromJson(element));
+      prod.add(OrderProduct.fromJson(element));
     });
     return prod;
   }

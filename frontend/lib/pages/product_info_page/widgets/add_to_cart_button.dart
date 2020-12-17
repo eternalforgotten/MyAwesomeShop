@@ -40,7 +40,7 @@ class _AddToCartButtonState extends State<AddToCartButton> {
     return GestureDetector(
       onTap: () async {
         if (authorized) {
-          Requests.addProduct(UserRepository.cart.products, widget.product.id);
+          Requests.addProduct(widget.product.id);
           showToast(
             "Товар добавлен в корзину",
             context: context,

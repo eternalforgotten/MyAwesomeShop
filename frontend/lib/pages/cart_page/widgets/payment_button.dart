@@ -6,12 +6,16 @@ import 'package:shop/repos/user_repository.dart';
 import 'package:shop/services/requests.dart';
 import 'package:shop/services/responsive_size.dart';
 
+import '../../../repos/user_repository.dart';
+import '../../../services/requests.dart';
+
 class PaymentButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var route = ModalRoute.of(context).settings.name;
     return GestureDetector(
       onTap: () async {
-        if (UserRepository.cart.products.isNotEmpty) {
+        if (UserRepository.cart.cartsProducts.isNotEmpty) {
           showToast(
             "Заказ оформлен",
             context: context,
@@ -24,7 +28,10 @@ class PaymentButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(20)
           );
           Navigator.of(context).pop();
-          await Requests.createOrder(UserRepository.cart.products, UserRepository.orders);   
+          if (route == "/orders"){
+            UserRepository.orders = await Requests.getOrders();
+          }
+          await Requests.createOrder(UserRepository.cart.cartsProducts, UserRepository.orders);   
         }
         else {
           showToast(

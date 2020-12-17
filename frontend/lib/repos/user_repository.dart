@@ -5,6 +5,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/entities/order.dart';
 import 'package:shop/entities/cart.dart';
+import 'package:shop/entities/order_product.dart';
 import 'package:shop/services/requests.dart';
 
 class UserRepository {

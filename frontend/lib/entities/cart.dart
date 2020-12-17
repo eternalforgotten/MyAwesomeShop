@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:shop/entities/cart_product.dart';
 import 'package:shop/entities/product.dart';
 
 class Cart {
   String id;
   String userId;
-  List<Product> products;
+  List<CartProduct> cartsProducts;
   String totalValue;
 
   Cart({
     @required this.id,
     @required this.userId,
-    @required this.products,
+    @required this.cartsProducts,
     @required this.totalValue,
   });
 
   Cart.fromJson(Map<String, dynamic> data) 
       : userId = data['user_id'].toString(),
-        products = realProducts(data['products']),
+        cartsProducts = realProducts(data['carts_products']),
         id = data['id'].toString(),
         totalValue = data['value'].toString();
 
-  static List<Product> realProducts(List<dynamic> temp){
-    List<Product> prod = [];
-    temp.forEach((element) {
-      prod.add(Product.fromJson(element));
+  static List<CartProduct> realProducts(List<dynamic> temp){
+    List<CartProduct> prod = [];
+    temp?.forEach((element) {
+      prod.add(CartProduct.fromJson(element));
     });
     return prod;
   }

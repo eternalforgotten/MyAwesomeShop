@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shop/entities/cart_product.dart';
 import 'package:shop/entities/order.dart';
+import 'package:shop/entities/order_product.dart';
 import 'package:shop/entities/product.dart';
 import 'package:shop/services/price.dart';
 import 'package:shop/services/requests.dart';
@@ -14,7 +16,7 @@ class OrderItem extends StatefulWidget {
 }
 
 class _OrderItemState extends State<OrderItem> {
-  List<Product> products = [];
+  List<OrderProduct> products = [];
   bool _expanded = false;
 
   Widget _buildNonExpanded() {
@@ -77,16 +79,27 @@ class _OrderItemState extends State<OrderItem> {
                 height: 10.height,
               ),
               ...products.map(
-                (product) => Container(
+                (cartProduct) => Container(
                   height: 25.height,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        product.title,
+                      Container(
+                        width: 100.width,
+                        child: Text(
+                          cartProduct.product.title,
+                        ),
                       ),
+                      Spacer(),
                       Text(
-                        Price.normalize(product.price),
+                        "x"+cartProduct.quantity.toString(),
+                      ),
+                      Container(
+                        alignment: Alignment.centerRight,
+                        width: 50.width,
+                        child: Text(
+                          Price.normalize((double.parse(cartProduct.product.price) * cartProduct.quantity).toString()),
+                        ),
                       ),
                     ],
                   ),
