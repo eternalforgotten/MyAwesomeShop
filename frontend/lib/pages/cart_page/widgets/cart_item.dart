@@ -112,18 +112,18 @@ class CartItem extends StatelessWidget {
                   children: [
                     Container(
                       height: 26.height,
-                      width: 90.width,
+                      width: 115.width,
                       decoration: BoxDecoration(
                         border: Border.all(
                           width: 1,
-                          color: Color(0xFFF2F5F8),
+                          color: Theme.of(context).primaryColor.withOpacity(0.3),
                         ),
                         borderRadius: BorderRadius.circular(2.5),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          GestureDetector(
+                          InkWell(
                             onTap: onDecrement,
                             child: Icon(
                               Icons.remove,
@@ -136,7 +136,7 @@ class CartItem extends StatelessWidget {
                               fontSize: 16.height,
                             ),
                           ),
-                          GestureDetector(
+                          InkWell(
                             onTap: onAdd,
                             child: Icon(
                               Icons.add,
