@@ -21,7 +21,7 @@ class _OrderItemState extends State<OrderItem> {
 
   Widget _buildNonExpanded() {
     String dateTime = widget.order.dateTime.split('.')[0];
-    String date = dateTime.substring(0,10);
+    String date = dateTime.substring(0, 10);
     String time = dateTime.substring(11);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,15 +90,32 @@ class _OrderItemState extends State<OrderItem> {
                           cartProduct.product.title,
                         ),
                       ),
+                      Spacer(
+                        flex: 12,
+                      ),
+                      Text(
+                        Price.normalize(cartProduct.product.price),
+                        style: TextStyle(
+                          fontSize: 13.height,
+                        ),
+                      ),
                       Spacer(),
                       Text(
-                        "x"+cartProduct.quantity.toString(),
+                        "x" + cartProduct.quantity.toString(),
+                        style: TextStyle(
+                          fontSize: 13.height,
+                        ),
                       ),
                       Container(
                         alignment: Alignment.centerRight,
                         width: 50.width,
                         child: Text(
-                          Price.normalize((double.parse(cartProduct.product.price) * cartProduct.quantity).toString()),
+                          (double.parse(cartProduct.product.price) *
+                                  cartProduct.quantity)
+                              .toStringAsFixed(2),
+                          style: TextStyle(
+                            fontSize: 15.height,
+                          ),
                         ),
                       ),
                     ],

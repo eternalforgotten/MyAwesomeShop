@@ -26,12 +26,16 @@ class _OrdersListState extends State<OrdersList> {
 
   @override
   Widget build(BuildContext context) {
+    int length = UserRepository.orders.length;
     return ListView.builder(
       padding: EdgeInsets.symmetric(horizontal: 5.width, vertical: 10.height),
-      itemBuilder: (_, index) => OrderItem(
-        order: UserRepository.orders[index],
-      ),
-      itemCount: UserRepository.orders.length,
+      itemBuilder: (_, index) {
+        var descIndex = length - 1 - index;
+        return OrderItem(
+          order: UserRepository.orders[descIndex],
+        );
+      },
+      itemCount: length,
     );
   }
 }
