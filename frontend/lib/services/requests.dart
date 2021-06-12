@@ -11,7 +11,7 @@ import 'package:shop/repos/user_repository.dart';
 import '../repos/user_repository.dart';
 
 class Requests {
-  static const String SERVERURL = "http://178.154.255.209:3210";
+  static const String SERVERURL = "http://192.168.0.82:3210";
 
   static Future<void> authorizeUser(String email, String password) async {
     String url = SERVERURL + "/user";
